@@ -216,17 +216,17 @@ class Pedidos(models.Model):
     inropedido = models.IntegerField(db_column='iNroPedido')  # Field name made lowercase.
     dfechapedido = models.DateTimeField(db_column='dFechaPedido')  # Field name made lowercase.
     iidestado = models.IntegerField(db_column='iIdEstado')  # Field name made lowercase.
-    iidcliente = models.ForeignKey(Clientes, models.DO_NOTHING, db_column='iIdCliente')  # Field name made lowercase.
+    iidcliente = models.ForeignKey(Clientes, models.DO_NOTHING, db_column='iIdCliente',null=True)  # Field name made lowercase.
     iidtipopedido = models.ForeignKey('TipoPedidos', models.DO_NOTHING, db_column='iIdTipoPedido')  # Field name made lowercase.
-    iidempleado = models.ForeignKey(Empleados, models.DO_NOTHING, db_column='iIdEmpleado')  # Field name made lowercase.
-    iidmesa = models.ForeignKey(Mesas, models.DO_NOTHING, db_column='iIdMesa')  # Field name made lowercase.
+    iidempleado = models.ForeignKey(Empleados, models.DO_NOTHING, db_column='iIdEmpleado',null=True)  # Field name made lowercase.
+    iidmesa = models.ForeignKey(Mesas, models.DO_NOTHING, db_column='iIdMesa',null=True)  # Field name made lowercase.
+    itotal = models.IntegerField(db_column='iTotal')
     created_at = models.DateTimeField(blank=True, null=True)
     updated_at = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'pedidos'
-
 
 class Productos(models.Model):
     iidproducto = models.BigAutoField(db_column='iIdProducto', primary_key=True)  # Field name made lowercase.
@@ -243,6 +243,16 @@ class Productos(models.Model):
     class Meta:
         managed = False
         db_table = 'productos'
+
+class DetallePedidos(models.Model):
+    iiddetallepedido = models.BigAutoField(db_column='iIdDetallePedido', primary_key=True)  # Field name made lowercase.
+    iidpedido = models.ForeignKey(Pedidos, models.DO_NOTHING, db_column='iIdPedido',null=True)
+    iidproducto = models.ForeignKey(Productos, models.DO_NOTHING, db_column='iIdProducto',null=True)
+    icantidad = models.IntegerField(db_column='iCantidad')  # Field name made lowercase.
+    precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+    class Meta:
+        managed = False
+        db_table = 'detallepedidos'
 
 
 class Sucursales(models.Model):

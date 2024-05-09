@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="container">
+{% include 'navbar.html'%}
     <div class="row p-2">
         <div class="col">
           <div class="card text-center">
@@ -15,21 +15,20 @@
        
       <div class="col-8">
         <div class="row">
-        {% for producto in productos %}
-         <div class="col-6">
-        <div class="card" style="width: 18rem;">
-            <img src="{% static producto.surl %}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">{{ producto.snombreproducto }}</h5>
-              <p class="card-text">{{ producto.sdescripcion }}</p>
-              <p class="card-footer">{{ producto.dprecio }}</p>
-              <a href="{% url 'Add' producto.iidproducto %}" class="btn btn-primary">Agregar Carrito</a>
+          {% for producto in productos %}
+          <div class="col-6">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static producto.surl %}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{ producto.snombreproducto }}</h5>
+                  <p class="card-text">{{ producto.sdescripcion }}</p>
+                  <p class="card-footer">{{ producto.dprecio }}</p>
+                  <a href="{% url 'Add' producto.iidproducto %}" class="btn btn-primary">Agregar Carrito</a>
+                </div>
             </div>
-          </div>
+          </div>               
+          {% endfor %}
         </div>
-               
-        {% endfor %}
-    </div>
       </div>
       <div class="col-4">
 
@@ -38,7 +37,7 @@
 
       </div>
     </div>   
-  </div>
+
   
 
 
